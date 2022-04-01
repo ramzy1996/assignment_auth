@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 import DeleteRoundedIcon from "@mui/icons-material/DeleteRounded";
 import AutoFixHighRoundedIcon from "@mui/icons-material/AutoFixHighRounded";
 import { Link } from "react-router-dom";
+import Switch from "@mui/material/Switch";
 
 const StyledTableCell = styled(TableCell)(({ theme }) => ({
   [`&.${tableCellClasses.head}`]: {
@@ -57,50 +58,62 @@ export default function UserList() {
   };
 
   return (
-    <TableContainer component={Paper} className="m-4">
-      <Table sx={{ minWidth: 700 }} aria-label="customized table">
-        <TableHead>
-          <TableRow>
-            <StyledTableCell align="right">First&nbsp;Name</StyledTableCell>
-            <StyledTableCell align="right">Last&nbsp;Name</StyledTableCell>
-            <StyledTableCell align="right">Mobile</StyledTableCell>
-            <StyledTableCell align="right">Email</StyledTableCell>
-            <StyledTableCell align="right">IsAdmin</StyledTableCell>
-            <StyledTableCell align="right">Action</StyledTableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {users.map((row, i) => {
-            return (
-              <StyledTableRow key={row._id}>
-                <StyledTableCell component="th" scope="row">
-                  {row.fname}
-                </StyledTableCell>
-                <StyledTableCell align="right">{row.lname}</StyledTableCell>
-                <StyledTableCell align="right">{row.mobile}</StyledTableCell>
-                <StyledTableCell align="right">{row.email}</StyledTableCell>
-                <StyledTableCell align="right">
-                  {row.isAdmin ? "True" : "False"}
-                </StyledTableCell>
-                <StyledTableCell align="right">
-                  <DeleteRoundedIcon
-                    style={{ cursor: "pointer" }}
-                    className="mr-4"
-                    onClick={() => {
-                      if (window.confirm("sure to delete?") === true) {
-                        deleteUser(row._id);
-                      }
-                    }}
-                  />
-                  <Link to={`/update/${row._id}`}>
-                    <AutoFixHighRoundedIcon className="mr-4" />
-                  </Link>
-                </StyledTableCell>
-              </StyledTableRow>
-            );
-          })}
-        </TableBody>
-      </Table>
-    </TableContainer>
+    <div>
+      <h1 className="text-center">User Details</h1>
+      <div className="d-flex justify-content-center">
+        <TableContainer component={Paper} className="m-4">
+          <Table sx={{ maxWidth: "100%" }} aria-label="customized table">
+            <TableHead>
+              <TableRow>
+                <StyledTableCell align="right">First&nbsp;Name</StyledTableCell>
+                <StyledTableCell align="right">Last&nbsp;Name</StyledTableCell>
+                <StyledTableCell align="right">Mobile</StyledTableCell>
+                <StyledTableCell align="right">Email</StyledTableCell>
+                <StyledTableCell align="right">IsAdmin</StyledTableCell>
+                <StyledTableCell align="right">Action</StyledTableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {users.map((row, i) => {
+                return (
+                  <StyledTableRow key={row._id}>
+                    <StyledTableCell component="th" scope="row">
+                      {row.fname}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.lname}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      {row.mobile}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">{row.email}</StyledTableCell>
+                    <StyledTableCell align="right">
+                      <Switch
+                        checked={row.isAdmin ? true : false}
+                        // onChange={handleChange}
+                        inputProps={{ "aria-label": "controlled" }}
+                      />
+                      {/* {row.isAdmin ? "True" : "False"} */}
+                    </StyledTableCell>
+                    <StyledTableCell align="right">
+                      <DeleteRoundedIcon
+                        style={{ cursor: "pointer" }}
+                        className="mr-4"
+                        onClick={() => {
+                          if (window.confirm("sure to delete?") === true) {
+                            deleteUser(row._id);
+                          }
+                        }}
+                      />
+                      <Link to={`/update/${row._id}`}>
+                        <AutoFixHighRoundedIcon className="mr-4" />
+                      </Link>
+                    </StyledTableCell>
+                  </StyledTableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </div>
+    </div>
   );
 }

@@ -65,7 +65,7 @@ router.put("/update/:id", async (req, res) => {
       .catch((err) => res.status(400).json(`Error: ${err}`));
   });
 });
-// find product by id and delete
+// find user by id and delete
 router.delete("/:id", async (req, res) => {
   try {
     await Users.findByIdAndDelete(req.params.id).then(() =>
