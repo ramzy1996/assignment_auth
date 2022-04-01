@@ -57,6 +57,12 @@ export default function UserList() {
     toast.success("product deleted successfully..");
   };
 
+  // isadmin
+  const is_admin = async (id) => {
+    await axios.put(`/user/${id}`).then((res) => toast.success(res.data));
+    window.location.reload();
+  };
+
   return (
     <div>
       <h1 className="text-center">User Details</h1>
@@ -89,6 +95,9 @@ export default function UserList() {
                       <Switch
                         checked={row.isAdmin ? true : false}
                         // onChange={handleChange}
+                        onChange={() => {
+                          is_admin(row._id);
+                        }}
                         inputProps={{ "aria-label": "controlled" }}
                       />
                       {/* {row.isAdmin ? "True" : "False"} */}

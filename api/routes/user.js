@@ -75,4 +75,20 @@ router.delete("/:id", async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+// is admin
+router.put("/:id", async (req, res) => {
+  try {
+    const user = await Users.findById(req.params.id);
+    if (user.isAdmin === false) {
+      await user.update({ $set: { isAdmin: true } });
+      res.status(200).json("The user is now admin");
+    } else {
+      await user.update({ $set: { isAdmin: false } });
+      res.status(200).json("The user is removed from admin");
+    }
+  } catch (error) {
+    res.status(500).json(error);
+  }
+});
 module.exports = router;
