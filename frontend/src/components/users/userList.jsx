@@ -54,12 +54,13 @@ export default function UserList() {
   const deleteUser = async (id) => {
     await axios.delete(`/user/${id}`).then((res) => console.log(res.data));
     setUsers(users.filter((elem) => elem._id !== id));
-    toast.success("product deleted successfully..");
+    toast.success("user deleted successfully..");
   };
 
   // isadmin
   const is_admin = async (id) => {
     await axios.put(`/user/${id}`).then((res) => toast.success(res.data));
+    // setUsers(users.filter((elem) => elem._id !== id));
     window.location.reload();
   };
 
